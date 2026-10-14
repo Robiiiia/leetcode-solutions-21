@@ -1,0 +1,41 @@
+contains duplicate 2
+
+mport java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+
+        // Создаём HashMap:
+        Map<Integer, Integer> map = new HashMap<>();
+
+        // Перебираем массив слева направо.
+        // i — текущий индекс элемента.
+        for (int i = 0; i < nums.length; i++) {
+
+            // Получаем число, которое находится на текущем индексе.
+            int num = nums[i];
+
+            // Проверяем, встречалось ли это число раньше.
+            if (map.containsKey(num)) {
+
+                // Получаем индекс предыдущего появления этого числа.
+                int previousIndex = map.get(num);
+
+                // Проверяем расстояние между индексами.
+                // Если оно не больше k, значит, нашли подходящую пару.
+                if (i - previousIndex <= k) {
+                    return true;
+                }
+            }
+
+            // Запоминаем текущий индекс числа.
+            // Если число уже было в Map, обновляем его индекс.
+            map.put(num, i);
+        }
+
+        // Если весь массив проверен, а подходящей пары нет,
+        // возвращаем false.
+        return false;
+    }
+}
